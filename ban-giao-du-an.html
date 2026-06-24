@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bàn giao dự án — Phuong Nam Education</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  background: #f0f2f5;
+  color: #111827;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page { max-width: 880px; margin: 0 auto; padding: 44px 24px 80px; }
+
+/* ── HEADER ─────────────────────── */
+.header {
+  background: #fff;
+  border-radius: 18px;
+  padding: 36px 40px 32px;
+  margin-bottom: 36px;
+  border: 1px solid #e5e9f0;
+  box-shadow: 0 2px 12px rgba(0,0,0,.05);
+}
+.hdr-top {
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;
+}
+.hdr-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #D12026;
+  margin-bottom: 10px;
+}
+.hdr-title { font-size: 28px; font-weight: 700; color: #111827; letter-spacing: -.5px; line-height: 1.15; }
+.hdr-sub { font-size: 13.5px; color: #6b7280; margin-top: 8px; }
+
+.hdr-date-box {
+  background: #f8f9fb; border: 1px solid #e5e9f0;
+  border-radius: 12px; padding: 14px 22px; text-align: center; flex-shrink: 0;
+}
+.hdr-date-label { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #9ca3af; }
+.hdr-date { font-size: 18px; font-weight: 700; color: #111827; margin-top: 4px; }
+.hdr-date-from { font-size: 11.5px; color: #9ca3af; margin-top: 2px; }
+
+.hdr-stats {
+  display: flex; gap: 0; margin-top: 28px;
+  border: 1px solid #e5e9f0; border-radius: 12px; overflow: hidden;
+}
+.stat {
+  flex: 1; padding: 14px 20px; text-align: center;
+  border-right: 1px solid #e5e9f0;
+}
+.stat:last-child { border-right: none; }
+.stat-num { font-size: 22px; font-weight: 700; color: #111827; line-height: 1; }
+.stat-label { font-size: 11.5px; color: #9ca3af; margin-top: 5px; }
+
+/* ── SECTION LABEL ─────────────────── */
+.sec-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.3px;
+  text-transform: uppercase; color: #9ca3af;
+  display: flex; align-items: center; gap: 10px;
+  margin: 36px 0 16px;
+}
+.sec-label::after { content: ''; flex: 1; height: 1px; background: #e5e9f0; }
+
+/* ── PROJECT CARD ──────────────────── */
+.proj {
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 16px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  transition: box-shadow .15s;
+}
+.proj:hover { box-shadow: 0 4px 20px rgba(0,0,0,.07); }
+
+.proj-top {
+  padding: 22px 28px 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+  border-left: 3px solid var(--pc);
+}
+.proj-avatar {
+  width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+  background: var(--pa); color: var(--pc);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.proj-info { flex: 1; }
+.proj-name { font-size: 15px; font-weight: 700; }
+.proj-stack { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+.proj-folder {
+  display: flex; align-items: center; gap: 5px;
+  margin-top: 5px; font-size: 12px;
+}
+.proj-folder svg { color: #9ca3af; flex-shrink: 0; }
+.proj-folder a { color: #3b82f6; text-decoration: none; }
+.proj-folder a:hover { text-decoration: underline; }
+.proj-prog-row { display: flex; align-items: center; gap: 10px; margin-top: 14px; }
+.pbar { flex: 1; height: 4px; background: #f3f4f6; border-radius: 99px; overflow: hidden; }
+.pbar-fill { height: 100%; border-radius: 99px; background: var(--pc); }
+.ppct { font-size: 12.5px; font-weight: 700; }
+.badge { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+.b-done { background: #ecfdf5; color: #059669; }
+.b-wip  { background: #fffbeb; color: #d97706; }
+.b-new  { background: #f3f4f6; color: #6b7280; }
+.b-dev  { background: #eff6ff; color: #2563eb; }
+.b-wait { background: #fff7ed; color: #c2410c; }
+
+.proj-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-top: 1px solid #f3f4f6;
+}
+.pb-col { padding: 18px 28px 20px; }
+.pb-col + .pb-col { border-left: 1px solid #f3f4f6; }
+.pb-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.1px; color: #9ca3af; margin-bottom: 9px;
+}
+.pb-label + .pb-label, .tg + .pb-label { margin-top: 14px; }
+
+.tg { display: flex; flex-wrap: wrap; gap: 5px; }
+.tag { font-size: 12px; padding: 3px 9px; border-radius: 6px; border: 1px solid; }
+.t-done { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+.t-todo { background: #fffbeb; color: #92400e; border-color: #fde68a; }
+.t-risk { background: #fff1f2; color: #be123c; border-color: #fecdd3; }
+.t-next { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.t-info { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+
+.kv-list { display: flex; flex-direction: column; gap: 6px; }
+.kv { display: flex; gap: 8px; font-size: 12.5px; align-items: baseline; }
+.kk { color: #9ca3af; min-width: 78px; flex-shrink: 0; font-size: 12px; }
+.kv a { color: #3b82f6; text-decoration: none; font-size: 12px; }
+.kv a:hover { text-decoration: underline; }
+
+.missing {
+  border: 1.5px dashed #d1d5db; border-radius: 12px;
+  padding: 14px 22px; font-size: 13px; color: #9ca3af;
+  background: #fff; display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+}
+
+/* ── TASK SECTION ──────────────────── */
+.task-group {
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.04);
+}
+.tg-header {
+  padding: 16px 28px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.tg-color { width: 8px; height: 8px; border-radius: 50%; background: var(--tc); flex-shrink: 0; }
+.tg-name { font-size: 14px; font-weight: 600; flex: 1; }
+.tg-count {
+  font-size: 11px; color: #9ca3af; font-weight: 500;
+  background: #f3f4f6; padding: 2px 9px; border-radius: 99px;
+}
+
+.task-item {
+  display: flex; gap: 16px;
+  padding: 16px 28px;
+  border-bottom: 1px solid #f9fafb;
+  align-items: flex-start;
+}
+.task-item:last-child { border-bottom: none; }
+
+.task-num {
+  font-size: 11.5px; font-weight: 600; color: #d1d5db;
+  min-width: 22px; padding-top: 2px; flex-shrink: 0;
+}
+.task-body { flex: 1; }
+.task-name { font-size: 13.5px; font-weight: 500; color: #111827; }
+.task-note { font-size: 12px; color: #9ca3af; margin-top: 3px; }
+.task-meta {
+  display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;
+}
+.task-chip {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11.5px; color: #6b7280;
+}
+.task-chip svg { opacity: .5; flex-shrink: 0; }
+
+/* blocker pill */
+.blocker {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 11.5px; color: #c2410c; background: #fff7ed;
+  border: 1px solid #fed7aa; border-radius: 99px;
+  padding: 3px 10px; margin-top: 8px;
+}
+.blocker::before { content: '⏳'; font-size: 11px; }
+
+/* contact mini-cards */
+.contacts {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 8px; margin-top: 12px;
+}
+.contact-card {
+  background: #f8f9fb; border: 1px solid #e5e9f0;
+  border-radius: 10px; padding: 10px 14px;
+}
+.cc-role { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #9ca3af; margin-bottom: 5px; }
+.cc-name { font-size: 12.5px; font-weight: 600; color: #111827; }
+.cc-phone { font-size: 12px; color: #3b82f6; margin-top: 2px; }
+.cc-note { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+
+/* ── LINK TABLE ────────────────────────── */
+.link-table {
+  background: #fff;
+  border: 1px solid #e5e9f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,.04);
+  margin-bottom: 12px;
+}
+.lt-header {
+  padding: 16px 28px;
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+.lt-header .lt-icon { font-size: 14px; }
+.lt-header .lt-name { font-size: 14px; font-weight: 600; flex: 1; }
+.lt-tip {
+  font-size: 11.5px; color: #9ca3af; background: #f8f9fb;
+  border: 1px solid #e5e9f0; border-radius: 8px;
+  padding: 2px 10px;
+}
+.lt-col-hdr {
+  display: grid; grid-template-columns: 160px 1fr 44px;
+  padding: 8px 28px; background: #f8f9fc;
+  border-bottom: 1px solid #f0f2f7; gap: 12px;
+}
+.lt-col-hdr span { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: #b0b8cc; }
+.lt-row {
+  display: grid; grid-template-columns: 160px 1fr 44px;
+  gap: 12px; padding: 11px 28px;
+  border-bottom: 1px solid #f8f9fb;
+  align-items: center;
+}
+.lt-row:last-child { border-bottom: none; }
+.lt-cat {
+  font-size: 12px; color: #6b7280;
+}
+.lt-link-wrap {
+  display: flex; align-items: center; gap: 8px;
+}
+.lt-link-text {
+  font-size: 13px; font-weight: 500; color: #111827;
+  min-width: 0; flex: 1; outline: none;
+  border: 1px solid transparent; border-radius: 6px;
+  padding: 3px 6px; transition: border .15s, background .15s;
+}
+.lt-link-text:focus {
+  border-color: #c7d2fe;
+  background: #eef2ff;
+}
+.lt-link-text:empty::before {
+  content: attr(placeholder);
+  color: #d1d5db;
+  font-weight: 400;
+  font-style: italic;
+}
+.lt-url {
+  font-size: 12px; color: #3b82f6; flex: 1; outline: none;
+  border: 1px solid transparent; border-radius: 6px;
+  padding: 3px 6px; transition: border .15s, background .15s;
+  word-break: break-all; min-width: 0;
+  text-decoration: none; display: block;
+}
+.lt-url:focus {
+  border-color: #bfdbfe;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+.lt-url:empty::before {
+  content: attr(placeholder);
+  color: #d1d5db;
+  font-style: italic;
+}
+.lt-open {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: #f3f4f6; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #6b7280; font-size: 13px; flex-shrink: 0;
+  text-decoration: none; transition: background .15s;
+}
+.lt-open:hover { background: #e0e7ff; color: #4f46e5; }
+.add-row-btn {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: #9ca3af; cursor: pointer;
+  padding: 10px 28px; border: none; background: none;
+  width: 100%; text-align: left;
+  border-top: 1px solid #f3f4f6;
+  transition: color .15s, background .15s;
+}
+.add-row-btn:hover { color: #4f46e5; background: #f8f9ff; }
+.add-row-btn::before { content: '+'; font-size: 16px; line-height: 1; }
+
+/* ── FOOTER ────────────────────────── */
+.footer {
+  text-align: center; font-size: 12px; color: #9ca3af;
+  margin-top: 52px; display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.footer::before, .footer::after { content: ''; flex: 1; max-width: 100px; height: 1px; background: #e5e9f0; }
+
+@media print {
+  body { background: #fff; }
+  .page { padding: 20px; }
+  .proj:hover { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="header">
+  <div class="hdr-top">
+    <div>
+      <div class="hdr-eyebrow">Phuong Nam Education</div>
+      <div class="hdr-title">Tài liệu bàn giao</div>
+      <div class="hdr-sub">Người bàn giao: Hue · Phòng Dự Án</div>
+
+    </div>
+    <div class="hdr-date-box">
+      <div class="hdr-date-label">Ngày bàn giao</div>
+      <div class="hdr-date">24/06/2026</div>
+      <div class="hdr-date-from">Phuong Nam Education</div>
+    </div>
+  </div>
+  <div class="hdr-stats">
+    <div class="stat">
+      <div class="stat-num">9</div>
+      <div class="stat-label">Dự án</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#059669;">3</div>
+      <div class="stat-label">Hoàn thành</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#d97706;">1</div>
+      <div class="stat-label">Sắp launch</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#2563eb;">2</div>
+      <div class="stat-label">Dev đang làm</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#6b7280;">1</div>
+      <div class="stat-label">Mới khởi tạo</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" style="color:#db2777;">1</div>
+      <div class="stat-label">Đang thiết kế</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">7</div>
+      <div class="stat-label">Task hàng tuần</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHẦN 1 ══ -->
+<div class="sec-label">Phần 1 — Các dự án</div>
+
+<!-- 01 hoctiengduc.com -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#D12026;--pa:#fff1f2;">
+    <div class="proj-avatar">HD</div>
+    <div class="proj-info">
+      <div class="proj-name">hoctiengduc.com</div>
+      <div class="proj-stack">Website trung tâm tiếng Đức · Laravel 13 + SQLite + Blade + Tabler Admin</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Code/hoctiengduc-web">/Users/chiara/Documents/Code/hoctiengduc-web</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:95%;"></div></div>
+        <span class="ppct">95%</span>
+        <span class="badge b-wip">Sắp launch</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Đã xong</div>
+      <div class="tg">
+        <span class="tag t-done">Trang chủ</span>
+        <span class="tag t-done">Lịch khai giảng</span>
+        <span class="tag t-done">9 trang khoá học (online + offline)</span>
+        <span class="tag t-done">Học phí (Model KhoaHoc)</span>
+        <span class="tag t-done">Tin tức · Tài liệu · Liên hệ</span>
+        <span class="tag t-done">Hệ sinh thái · 3 trang pháp lý</span>
+        <span class="tag t-done">Admin Đợt 1→11 đầy đủ</span>
+        <span class="tag t-done">PageContent + TinyMCE + upload ảnh</span>
+        <span class="tag t-done">Phân quyền Quản trị / Biên tập</span>
+        <span class="tag t-done">Pi mascot (mức 1–3)</span>
+        <span class="tag t-done">Giữ link cũ (.html → 200)</span>
+      </div>
+      <div class="pb-label">Còn lại</div>
+      <div class="tg">
+        <span class="tag t-todo">Đợt 9 curriculum</span>
+        <span class="tag t-todo">Nghiệm thu cuối</span>
+        <span class="tag t-todo">Deploy lên server OVH</span>
+      </div>
+      <div class="pb-label">Lưu ý</div>
+      <div class="tg">
+        <span class="tag t-risk">Không ghi đè dữ liệu admin khi test</span>
+        <span class="tag t-risk">Backup DB trước mọi schema change</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Thông tin kỹ thuật</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Dev port</span><span>Claude Code (terminal)</span></div>
+        <div class="kv"><span class="kk">Design</span><span>Cowork</span></div>
+        <div class="kv"><span class="kk">Deploy</span><span>Server OVH (liên hệ khanhicetea)</span></div>
+        <div class="kv"><span class="kk">Admin</span><span>/admin/login</span></div>
+        <div class="kv"><span class="kk">Tiến độ</span><span>designs/huong-dan-cac-buoc.md</span></div>
+      </div>
+      <div class="pb-label">Bước tiếp theo</div>
+      <div class="tg">
+        <span class="tag t-next">Đọc CLAUDE.md + AGENTS.md</span>
+        <span class="tag t-next">Mở huong-dan-cac-buoc.md</span>
+        <span class="tag t-next">Liên hệ dev OVH sau nghiệm thu</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 duhocngheduc.com -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#d97706;--pa:#fffbeb;">
+    <div class="proj-avatar">DH</div>
+    <div class="proj-info">
+      <div class="proj-name">duhocngheduc.com</div>
+      <div class="proj-stack">Website du học nghề Đức · Laravel 13 + SQLite + Blade + Tabler Admin</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Code/Duhocngheduc-web">/Users/chiara/Documents/Code/Duhocngheduc-web</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:10%;"></div></div>
+        <span class="ppct">10%</span>
+        <span class="badge b-new">Mới khởi tạo</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Đã xong</div>
+      <div class="tg">
+        <span class="tag t-done">Clone framework + reset nội dung cũ</span>
+        <span class="tag t-done">DB sạch · Git + GitHub private</span>
+        <span class="tag t-done">Admin login hoạt động</span>
+      </div>
+      <div class="pb-label">Còn lại</div>
+      <div class="tg">
+        <span class="tag t-todo">Design system + brand tokens</span>
+        <span class="tag t-todo">Trang chủ (thiết kế từ đầu)</span>
+        <span class="tag t-todo">Ngành nghề Ausbildung</span>
+        <span class="tag t-todo">Quy trình & điều kiện</span>
+        <span class="tag t-todo">Câu chuyện học viên</span>
+        <span class="tag t-todo">Tin tức + Liên hệ + Deploy</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Tài liệu</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Hướng dẫn</span><span>CLAUDE.md trong folder</span></div>
+        <div class="kv"><span class="kk">Tiến độ</span><span>designs/huong-dan-cac-buoc.md</span></div>
+        <div class="kv"><span class="kk">Tham khảo</span><a href="https://duhocngheduc.com">duhocngheduc.com (web cũ)</a></div>
+      </div>
+      <div class="pb-label">Quy trình</div>
+      <div class="tg">
+        <span class="tag t-next">Đọc CLAUDE.md trước khi build</span>
+        <span class="tag t-next">Cowork thiết kế → Claude Code build</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 Học bổng Áo -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#0e7490;--pa:#ecfeff;">
+    <div class="proj-avatar">AO</div>
+    <div class="proj-info">
+      <div class="proj-name">Học bổng Điều dưỡng tại Áo 2026</div>
+      <div class="proj-stack">Landing page tuyển sinh + Hệ thống Admin · HTML/JS + Node.js Express + PostgreSQL</div>
+      <div style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:11.5px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:4px 10px;">⚠️ Backend hiện dùng Supabase (ngoài) — cần chuyển về server PNE trong Phase 2</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Claude/Projects/CDVB%20%C3%81o">/Users/chiara/Documents/Claude/Projects/CDVB Áo</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:100%;"></div></div>
+        <span class="ppct">100%</span>
+        <span class="badge b-done">Hoàn thành</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Landing page</div>
+      <div class="tg">
+        <span class="tag t-done">Brand PNE · Responsive + hamburger</span>
+        <span class="tag t-done">Popup đăng ký + checklist hồ sơ</span>
+        <span class="tag t-done">Upload tài liệu từng loại</span>
+        <span class="tag t-done">Kết nối được cả GAS lẫn Admin API</span>
+        <span class="tag t-done">Ảnh tối ưu <1MB (8 ảnh web-img/)</span>
+      </div>
+      <div class="pb-label">Admin system</div>
+      <div class="tg">
+        <span class="tag t-done">DB 13 bảng + ERD</span>
+        <span class="tag t-done">REST API — 17 file</span>
+        <span class="tag t-done">Auth: JWT + refresh + 2FA TOTP</span>
+        <span class="tag t-done">RBAC 3 vai trò</span>
+        <span class="tag t-done">8 trang Admin UI</span>
+        <span class="tag t-done">Worker email hồ sơ mới</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Cấu trúc file</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Landing</span><span>landing-hoc-bong-dieu-duong-ao.html</span></div>
+        <div class="kv"><span class="kk">API</span><span>pne-admin/api/ (17 file)</span></div>
+        <div class="kv"><span class="kk">DB schema</span><span>pne-admin/db/schema.sql</span></div>
+        <div class="kv"><span class="kk">Admin pages</span><span>pne-admin/pages/ (8 trang)</span></div>
+        <div class="kv"><span class="kk">Status</span><span>pne-admin/backlog/project-status.md</span></div>
+      </div>
+      <div class="pb-label">Lưu ý bảo mật</div>
+      <div class="tg">
+        <span class="tag t-risk">Hồ sơ CCCD, học bạ — tuân NĐ13/2023</span>
+        <span class="tag t-risk">Seed admin dùng password placeholder — phải đổi khi deploy</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 04 Tài Trợ -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#7c3aed;--pa:#f5f3ff;">
+    <div class="proj-avatar">TT</div>
+    <div class="proj-info">
+      <div class="proj-name">Dashboard Quản lý Tài trợ</div>
+      <div class="proj-stack">sponsorship.phuongnameducation.com · HTML + Google Apps Script + Google Sheets</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Claude/Projects/T%C3%A0i%20Tr%E1%BB%A3">/Users/chiara/Documents/Claude/Projects/Tài Trợ</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:100%;"></div></div>
+        <span class="ppct">100%</span>
+        <span class="badge b-done">Hoàn thành</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Tính năng</div>
+      <div class="tg">
+        <span class="tag t-done">Kanban + List + Overview + Stats</span>
+        <span class="tag t-done">Multi-account sync Google Sheets</span>
+        <span class="tag t-done">Sinh mã voucher tự động</span>
+        <span class="tag t-done">Tab Lịch phòng (live CRM API)</span>
+        <span class="tag t-done">Gmail watcher → tạo hồ sơ tự động</span>
+        <span class="tag t-done">Telegram bot + notify tiến độ quyền lợi</span>
+        <span class="tag t-done">Sync voucher CRM · DNS đã trỏ</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Link</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Live</span><a href="https://sponsorship.phuongnameducation.com">sponsorship.phuongnameducation.com</a></div>
+        <div class="kv"><span class="kk">GitHub</span><a href="https://github.com/hueptt-bit/pne-taitro">hueptt-bit/pne-taitro</a></div>
+        <div class="kv"><span class="kk">Tiến độ</span><span>BACKLOG.md trong folder</span></div>
+      </div>
+      <div class="pb-label">Bảo mật</div>
+      <div class="tg">
+        <span class="tag t-risk">gas_pne_taitro.js → .gitignore</span>
+        <span class="tag t-risk">TG_TOKEN → GAS Script Properties</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 05 Content Ads -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#0369a1;--pa:#eff6ff;">
+    <div class="proj-avatar">CA</div>
+    <div class="proj-info">
+      <div class="proj-name">FB Ads Content Tracker</div>
+      <div class="proj-stack">GitHub Pages · HTML + Google Apps Script + Google Sheets</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Claude/Projects/Content%20Ads">/Users/chiara/Documents/Claude/Projects/Content Ads</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:100%;"></div></div>
+        <span class="ppct">100%</span>
+        <span class="badge b-done">Hoàn thành</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Tính năng</div>
+      <div class="tg">
+        <span class="tag t-done">Bảng live từ Google Sheet qua GAS</span>
+        <span class="tag t-done">Filter theo chương trình + trạng thái</span>
+        <span class="tag t-done">Workflow 4 bước gia hạn ads</span>
+        <span class="tag t-done">Telegram notify từng bước + daily 9h</span>
+        <span class="tag t-done">Tab Đang xử lý + Kanban 4 cột</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Tài liệu</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Sheet ID</span><span style="font-size:11px;color:#6b7280;word-break:break-all;">1S8ohuGOecMpqAEHEZuocxVO1pNW0HfTfeZKtaEGRm0U</span></div>
+        <div class="kv"><span class="kk">Deploy</span><span>python3 push_to_github.py</span></div>
+        <div class="kv"><span class="kk">Tiến độ</span><span>backlog.md trong folder</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 06 Thực Tập Sinh -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#0891b2;--pa:#ecfeff;">
+    <div class="proj-avatar">TT</div>
+    <div class="proj-info">
+      <div class="proj-name">Dự án Thực Tập Sinh</div>
+      <div class="proj-stack">Đã chuyển cho team dev · Chưa hoàn thành</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="https://drive.google.com/drive/u/5/folders/1xYMdLsNI4sU5AWy9PkMPSNT5yugrqWwb" target="_blank">Google Drive — Folder Thực Tập Sinh</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:40%;"></div></div>
+        <span class="ppct">~40%</span>
+        <span class="badge b-dev">Dev đang làm</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body" style="grid-template-columns:1fr;">
+    <div class="pb-col">
+      <div class="pb-label">Tình trạng</div>
+      <div class="tg">
+        <span class="tag t-info" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;">Đã bàn giao cho team dev</span>
+        <span class="tag t-todo">Chưa hoàn thành — cần theo dõi tiến độ với dev</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 07 Cho Thuê Phòng -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#059669;--pa:#f0fdf4;">
+    <div class="proj-avatar">CP</div>
+    <div class="proj-info">
+      <div class="proj-name">Dự án Cho Thuê Phòng</div>
+      <div class="proj-stack">Đã chuyển cho team dev · Chưa hoàn thành</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="https://drive.google.com/drive/u/5/folders/1oIBgJmlrIvJgzPnPbQtssLTXhyKuz-hn" target="_blank">Google Drive — Folder Cho Thuê Phòng</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:30%;"></div></div>
+        <span class="ppct">~30%</span>
+        <span class="badge b-dev">Dev đang làm</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body" style="grid-template-columns:1fr;">
+    <div class="pb-col">
+      <div class="pb-label">Tình trạng</div>
+      <div class="tg">
+        <span class="tag t-info" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;">Đã bàn giao cho team dev</span>
+        <span class="tag t-todo">Chưa hoàn thành — cần theo dõi tiến độ với dev</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 08 AI Language Tutor -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#db2777;--pa:#fdf2f8;">
+    <div class="proj-avatar">AI</div>
+    <div class="proj-info">
+      <div class="proj-name">AI Language Tutor Platform (Gia sư)</div>
+      <div class="proj-stack">Nền tảng học ngoại ngữ AI · Tiếng Anh · Tiếng Trung · Tiếng Đức · Đang giai đoạn thiết kế</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="file:///Users/chiara/Documents/Claude/Projects/AI%20tutor">/Users/chiara/Documents/Claude/Projects/AI tutor</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:20%;"></div></div>
+        <span class="ppct">20%</span>
+        <span class="badge" style="background:#fdf2f8;color:#db2777;">Đang thiết kế</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body">
+    <div class="pb-col">
+      <div class="pb-label">Đã xong</div>
+      <div class="tg">
+        <span class="tag t-done">PRD v1.3 — 3 ngôn ngữ (EN · ZH · DE)</span>
+        <span class="tag t-done">Wireframe onboarding (v1 + v2)</span>
+        <span class="tag t-done">Wireframe placement test</span>
+        <span class="tag t-done">Wireframe trang chủ web</span>
+        <span class="tag t-done">Mockup dashboard học viên</span>
+        <span class="tag t-done">Mockup phiên học (nghe · nói · viết)</span>
+        <span class="tag t-done">Design system sơ bộ</span>
+      </div>
+      <div class="pb-label">Còn lại</div>
+      <div class="tg">
+        <span class="tag t-todo">Hoàn thiện thiết kế toàn bộ màn hình</span>
+        <span class="tag t-todo">Chọn tech stack + build backend AI</span>
+        <span class="tag t-todo">Tích hợp Azure Pronunciation Assessment</span>
+        <span class="tag t-todo">Curriculum design (Anh · Trung · Đức)</span>
+        <span class="tag t-todo">MVP → test nội bộ</span>
+      </div>
+    </div>
+    <div class="pb-col">
+      <div class="pb-label">Đặc điểm sản phẩm</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Định vị</span><span>Gia sư AI 1-1, cá nhân hóa sâu (Bloom's Two Sigma)</span></div>
+        <div class="kv"><span class="kk">Phương pháp</span><span>Socratic Method — AI gợi mở, không đưa đáp án thẳng</span></div>
+        <div class="kv"><span class="kk">Lộ trình</span><span>General CEFR (A1→C2) + Certification Prep (IELTS/HSK/Goethe)</span></div>
+        <div class="kv"><span class="kk">Mô hình</span><span>Bootstrap — AI tools + no-code/low-code</span></div>
+      </div>
+      <div class="pb-label">File chính</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">PRD</span><span>AI_Tutor_PRD_v1.3.docx (bản mới nhất)</span></div>
+        <div class="kv"><span class="kk">Wireframes</span><span>wireframe_*.html · learning-session-*.html</span></div>
+        <div class="kv"><span class="kk">Dashboard</span><span>dashboard.html · student-dashboard.html</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 09 Platform Học Bổng -->
+<div class="proj">
+  <div class="proj-top" style="--pc:#7c3aed;--pa:#f5f3ff;">
+    <div class="proj-avatar">HB</div>
+    <div class="proj-info">
+      <div class="proj-name">Platform Học Bổng</div>
+      <div class="proj-stack">Laravel + SQLite + Blade + Tabler Admin · Build mới hoàn toàn · Đang lên kế hoạch</div>
+      <div class="proj-folder">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        <a href="https://drive.google.com/drive/u/2/folders/18CjPtCWrCNNRGKdh1yD1z1RIjm0sQ7Em" target="_blank">Google Drive — Folder thiết kế (PSD)</a>
+      </div>
+      <div class="proj-prog-row">
+        <div class="pbar"><div class="pbar-fill" style="width:5%;"></div></div>
+        <span class="ppct">~5%</span>
+        <span class="badge" style="background:#f5f3ff;color:#7c3aed;">Lên kế hoạch</span>
+      </div>
+    </div>
+  </div>
+  <div class="proj-body" style="grid-template-columns:1fr;">
+    <div class="pb-col">
+      <div class="pb-label">Hướng làm</div>
+      <div class="kv-list">
+        <div class="kv"><span class="kk">Quy trình</span><span>Vibecode chuẩn — Cowork thiết kế → Claude Code build</span></div>
+        <div class="kv"><span class="kk">Bước 1</span><span>Quét thiết kế từ folder PSD → xác định trang nào dùng lại được</span></div>
+        <div class="kv"><span class="kk">Bước 2</span><span>Tạo design system (token màu, font, tỉ lệ 60/30/10)</span></div>
+        <div class="kv"><span class="kk">Bước 3</span><span>Mockup từng trang → port brief → Claude Code build full (Route + Blade + Model + Admin)</span></div>
+      </div>
+      <div class="pb-label">Tình trạng</div>
+      <div class="tg">
+        <span class="tag t-todo">Folder project chưa tạo</span>
+        <span class="tag t-todo">Chưa bắt đầu thiết kế</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PHẦN 2: LINK ══ -->
+<div class="sec-label">Phần 2 — Tài nguyên & Link</div>
+
+<!-- POSM & Thiết kế -->
+<div class="link-table">
+  <div class="lt-header">
+    <span class="lt-icon">🖨️</span>
+    <span class="lt-name">POSM & File thiết kế</span>
+    <span class="lt-tip">Click vào ô để sửa / dán link</span>
+  </div>
+  <div class="lt-col-hdr">
+    <span>Loại</span><span>Tên & Link</span><span></span>
+  </div>
+  <div class="lt-row">
+    <span class="lt-cat">Google Sheet</span>
+    <div>
+      <div class="lt-link-text" contenteditable="true">PNE | POSM — Toàn bộ file in ấn (flyer, standee, CBVB, du học nghề...)</div>
+      <div class="lt-url" contenteditable="true">https://docs.google.com/spreadsheets/d/1UkwlCknlwQ_qqrJaZ5yLLyxlywFpQ216u5xivmW33jY/edit?gid=0#gid=0</div>
+    </div>
+    <a class="lt-open" onclick="openLink(this)" title="Mở link">↗</a>
+  </div>
+  <button class="add-row-btn" onclick="addRow(this)"> Thêm dòng</button>
+</div>
+
+<!-- Folder & Công cụ -->
+<div class="link-table">
+  <div class="lt-header">
+    <span class="lt-icon">📁</span>
+    <span class="lt-name">Công cụ online</span>
+    <span class="lt-tip">Click vào ô để sửa / dán link</span>
+  </div>
+  <div class="lt-col-hdr">
+    <span>Loại</span><span>Tên & Link</span><span></span>
+  </div>
+  <div class="lt-row">
+    <span class="lt-cat">Dashboard</span>
+    <div>
+      <div class="lt-link-text" contenteditable="true">Dashboard Tài trợ</div>
+      <div class="lt-url" contenteditable="true">https://sponsorship.phuongnameducation.com/dashboard.html</div>
+    </div>
+    <a class="lt-open" onclick="openLink(this)" title="Mở link">↗</a>
+  </div>
+  <div class="lt-row">
+    <span class="lt-cat">Tracker</span>
+    <div>
+      <div class="lt-link-text" contenteditable="true">FB Ads Content Tracker</div>
+      <div class="lt-url" contenteditable="true">https://hueptt-bit.github.io/pne-ads-dashboard/</div>
+    </div>
+    <a class="lt-open" onclick="openLink(this)" title="Mở link">↗</a>
+  </div>
+  <button class="add-row-btn" onclick="addRow(this)"> Thêm dòng</button>
+</div>
+
+<script>
+function openLink(btn) {
+  const url = btn.closest('.lt-row').querySelector('.lt-url').textContent.trim();
+  if (url && url.startsWith('http')) window.open(url, '_blank');
+}
+function addRow(btn) {
+  const table = btn.closest('.link-table');
+  const row = document.createElement('div');
+  row.className = 'lt-row';
+  row.innerHTML = `
+    <span class="lt-cat" contenteditable="true" style="outline:none;border:1px dashed #e5e9f0;border-radius:6px;padding:3px 6px;" placeholder="Loại..."></span>
+    <div>
+      <div class="lt-link-text" contenteditable="true" placeholder="Tên..."></div>
+      <div class="lt-url" contenteditable="true" placeholder="Dán link vào đây..."></div>
+    </div>
+    <a class="lt-open" onclick="openLink(this)" title="Mở link">↗</a>`;
+  table.insertBefore(row, btn);
+  row.querySelector('.lt-cat').focus();
+}
+</script>
+
+<!-- ══ PHẦN 3: CÔNG VIỆC ══ -->
+<div class="sec-label">Phần 3 — Công việc hàng tuần</div>
+
+<!-- Đang chờ phản hồi -->
+<div class="task-group">
+  <div class="tg-header" style="--tc:#c2410c;">
+    <div class="tg-color"></div>
+    <span class="tg-name">Đang chờ phản hồi</span>
+    <span class="tg-count">2 task</span>
+  </div>
+  <div class="task-item">
+    <span class="task-num">01</span>
+    <div class="task-body">
+      <div class="task-name">Cập nhật thông tin Hồ sơ năng lực</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Ngân
+        </span>
+      </div>
+      <div class="blocker">Chờ Ngân check thông tin</div>
+    </div>
+  </div>
+  <div class="task-item">
+    <span class="task-num">02</span>
+    <div class="task-body">
+      <div class="task-name">Chỉnh sửa thiết kế sổ tay</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Ngân
+        </span>
+      </div>
+      <div class="blocker">Chờ Ngân phản hồi</div>
+    </div>
+  </div>
+</div>
+
+<!-- Quản lý & Điều phối -->
+<div class="task-group">
+  <div class="tg-header" style="--tc:#6366f1;">
+    <div class="tg-color"></div>
+    <span class="tg-name">Quản lý & Điều phối</span>
+    <span class="tg-count">1 task</span>
+  </div>
+  <div class="task-item">
+    <span class="task-num">03</span>
+    <div class="task-body">
+      <div class="task-name">Điều phối chuẩn bị nội dung cần chạy ads</div>
+      <div class="task-note">Chương trình du học nghề Đức, kỳ thi ÖSD, các khoá tiếng Đức — lên lịch, phân công team content + designer</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Hằng tuần
+        </span>
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Team Content · Designer
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Duyệt & Review -->
+<div class="task-group">
+  <div class="tg-header" style="--tc:#059669;">
+    <div class="tg-color"></div>
+    <span class="tg-name">Duyệt & Review</span>
+    <span class="tg-count">1 task</span>
+  </div>
+  <div class="task-item">
+    <span class="task-num">04</span>
+    <div class="task-body">
+      <div class="task-name">Duyệt content + hình post hàng tuần</div>
+      <div class="task-note">Kiểm tra tone, thông tin, CTA, hình phù hợp brand PNE</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Hằng tuần
+        </span>
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Team Content
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tài trợ & Hợp đồng -->
+<div class="task-group">
+  <div class="tg-header" style="--tc:#7c3aed;">
+    <div class="tg-color"></div>
+    <span class="tg-name">Tài trợ & Hợp đồng</span>
+    <span class="tg-count">2 task</span>
+  </div>
+  <div class="task-item">
+    <span class="task-num">05</span>
+    <div class="task-body">
+      <div class="task-name">Trao đổi & chốt các gói tài trợ</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Theo chiến dịch
+        </span>
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Dương
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="task-item">
+    <span class="task-num">06</span>
+    <div class="task-body">
+      <div class="task-name">Check hợp đồng & tiến độ trả quyền lợi</div>
+      <div class="task-note">Đọc & xác nhận điều khoản · Theo dõi thực hiện đúng hợp đồng</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Theo chiến dịch
+        </span>
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Dương
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POSM & In ấn -->
+<div class="task-group">
+  <div class="tg-header" style="--tc:#D12026;">
+    <div class="tg-color"></div>
+    <span class="tg-name">POSM & In ấn</span>
+    <span class="tg-count">1 task</span>
+  </div>
+  <div class="task-item">
+    <span class="task-num">07</span>
+    <div class="task-body">
+      <div class="task-name">Update nội dung & In ấn POSM</div>
+      <div class="task-note">Brief nội dung mới cho designer → duyệt phiên bản cuối → đặt in qua đầu mối bên dưới</div>
+      <div class="task-meta">
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Theo chiến dịch
+        </span>
+        <span class="task-chip">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Designer + Nhà in
+        </span>
+      </div>
+      <div class="contacts">
+        <div class="contact-card">
+          <div class="cc-role">Bút bi · Highlight</div>
+          <div class="cc-name">Trúc Ngọc</div>
+          <div class="cc-phone">0969 183 658</div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-role">Standee</div>
+          <div class="cc-name">Anh Tuấn</div>
+          <div class="cc-phone">+84 903 854 009</div>
+        </div>
+        <div class="contact-card">
+          <div class="cc-role">Flyer</div>
+          <div class="cc-name">Minh Thùy</div>
+          <div class="cc-phone">0909 652 241</div>
+          <div class="cc-note">In siêu tốc</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Phuong Nam Education · Tài liệu bàn giao · 24/06/2026</div>
+</div>
+</body>
+</html>
